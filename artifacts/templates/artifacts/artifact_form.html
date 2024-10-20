@@ -1,0 +1,98 @@
+
+{% load static %}
+{% load form_tags %}
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}编辑文物{% else %}添加新文物{% endif %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'artifacts/styles_form.css' %}">
+</head>
+<body>
+    <h1 align="center">{% if form.instance.pk %}编辑文物{% else %}添加新文物{% endif %}</h1>
+    <div class="form-div">
+      <div class="form-div-left">&emsp;</div>
+      <div class="form-div-middle">
+      <form method="post">
+        {% csrf_token %}
+        
+        <label class="lb" for="{{ form.year.id_for_label }}">年：</label>
+        {{ form.year|add_class:"form-input" }}
+        
+        <label class="lb" for="{{ form.month.id_for_label }}">月：</label>
+        {{ form.month|add_class:"form-input" }}
+        
+        <label class="lb" for="{{ form.day.id_for_label }}">日：</label>
+        {{ form.day|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.registration_number.id_for_label }}">总登记号：</label>
+        {{ form.registration_number|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.classification_number.id_for_label }}">分类号：</label>
+        {{ form.classification_number|add_class:"form-input" }}
+        
+        <label class="lb" for="{{ form.name.id_for_label }}">名称：</label>
+        {{ form.name|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.era.id_for_label }}">年代：</label>
+        {{ form.era|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.quantity.id_for_label }}">件数：</label>
+        {{ form.quantity|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.unit.id_for_label }}">单位：</label>
+        {{ form.unit|add_class:"form-input" }}
+        
+        <label class="lb" for="{{ form.size.id_for_label }}">尺寸：</label>
+        {{ form.size|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.weight.id_for_label }}">重量：</label>
+        {{ form.weight|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.texture.id_for_label }}">质地：</label>
+        {{ form.texture|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.condition.id_for_label }}">完残情况：</label>
+        {{ form.condition |add_class:"form-text" }}
+
+        <label class="lb" for="{{ form.source.id_for_label }}">来源：</label>
+        {{ form.source|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.entrance_certificate_number.id_for_label }}">入馆凭证号：</label>
+        {{ form.entrance_certificate_number|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.cancellation_certificate_number.id_for_label }}">注销凭证号：</label>
+        {{ form.cancellation_certificate_number|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.level.id_for_label }}">级别：</label>
+        {{ form.level|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.remarks.id_for_label }}">备注：</label>
+        {{ form.remarks|add_class:"form-text" }}
+        
+        <label class="lb" for="{{ form.person_in_charge.id_for_label }}">负责人：</label>
+        {{ form.person_in_charge|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.file_number.id_for_label }}">档案编号：</label>
+        {{ form.file_number|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.shape_description.id_for_label }}">形状内容描述：</label>
+        {{ form.shape_description|add_class:"form-text" }}
+
+        <label class="lb" for="{{ form.current_storage_conditions.id_for_label }}">当前保存条件：</label>
+        {{ form.current_storage_conditions|add_class:"form-input" }}
+
+        <label class="lb" for="{{ form.inscriptions.id_for_label }}">铭记题跋：</label>
+        {{ form.inscriptions|add_class:"form-text" }}
+
+        <div class="button-container">
+        <button type="submit" class="button">保存</button>&emsp;&emsp;<button type="reset" class="button">重置</button>&emsp;&emsp;<input type="button" name="Submit" class="button" onclick="javascript:history.back(-1);" value="返回">
+        </div>
+      </form>
+      </div>
+      <div class="form-div-right">&emsp;</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>文物 {{ artifact.name }} 的详情</title>
+</head>
+<body>
+    <h1>文物详情</h1>
+    <p><strong>总登记号：</strong> {{ artifact.registration_number }}</p>
+    <p><strong>分类号：</strong> {{ artifact.classification_number }}</p>
+    <p><strong>名称：</strong> {{ artifact.name }}</p>
+    <p><strong>年代：</strong> {{ artifact.era }}</p>
+    <p><strong>件数：</strong> {{ artifact.quantity }}</p>
+    <p><strong>质地：</strong> {{ artifact.texture }}</p>
+    <p><strong>尺寸：</strong> {{ artifact.size }}</p>
+    <p><strong>重量：</strong> {{ artifact.weight }}</p>
+    <p><strong>完残情况：</strong> {{ artifact.condition }}</p>
+    <p><strong>负责人：</strong> {{ artifact.person_in_charge }}</p>
+    <p><strong>入藏日期：</strong> {{ artifact.year }}-{{ artifact.month }}-{{ artifact.day }}</p>
+</body>
+</html>
+

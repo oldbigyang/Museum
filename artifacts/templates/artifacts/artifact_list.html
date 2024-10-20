@@ -1,0 +1,86 @@
+{% load static %}  <!-- 加载静态文件标签 -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颐和园博物馆文物管理系统</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'artifacts/styles_list.css' %}">  <!-- 引用 CSS 文件 -->
+</head>
+<body>
+  <h1 align="center">颐和园博物馆文物管理系统</h1>
+  <div class="form-top">
+    <a href="{% url 'artifact_create' %}" class="link-top">添加新文物</a>
+    <form style="display: inline-block" method="GET" action="">
+      <input id="artsearch" class="form-top-input" type="" name="q" placeholder="输入搜索关键字..." value="{{ query|default_if_none:'' }}">
+      <button class="button-top" type="submit">搜索</button>
+    </form>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>总登记号</th>
+        <th>分类号</th>
+        <th>文物名称</th>
+        <th>件数</th>
+        <th>质地</th>
+        <th>尺寸</th>
+        <th>重量</th>
+        <th>完残情况</th>
+        <th>负责人</th>
+        <th>入藏日期</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+            {% for artifact in artifacts %}
+                <tr>
+                    <td>{{ artifact.registration_number }}</td>
+                    <td>{{ artifact.classification_number }}</td>
+                    <td>{{ artifact.era }}   {{artifact.name}}</td>
+                    <td>{{ artifact.quantity }}</td>
+                    <td>{{ artifact.texture }}</td>
+                    <td>{{ artifact.size }}</td>
+                    <td>{{ artifact.weight }}</td>
+                    <td>{{ artifact.condition }}</td>
+                    <td>{{ artifact.person_in_charge }}</td>
+                    <td>{{ artifact.year }}-{{ artifact.month }}-{{artifact.day }}</td>
+                    <td>
+                      <a href="{% url 'artifact_update' artifact.pk %}" class="link-one">编辑</a>&emsp;|&emsp;
+                      <a href="{% url 'artifact_delete' artifact.pk %}" class="link-one">删除</a>&emsp;|&emsp;
+                      <a href="{% url 'artifact_export_word' artifact.pk %}" class="link-one">导出 Word 文件</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- 分页导航 -->
+    <div class="form-bottom-container">
+      <div class="form-bottom-links">
+            {% if artifacts.has_previous %}
+                <a class="link-one" href="?page=1{% if query %}&q={{ query }}{% endif %}">首页</a><span>&emsp;|&emsp;</span><a class="link-one" href="?page={{ artifacts.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">上一页</a><span>&emsp;</span>
+            {% else %}
+                <span class="link-one">首页&emsp;|&emsp;上一页&emsp;</span>
+            {% endif %}
+            {% if artifacts.has_next %}
+                <a class="link-one" href="?page={{ artifacts.next_page_number }}{% if query %}&q={{ query }}{% endif %}">下一页</a>&emsp;|&emsp;<a class="link-one" href="?page={{ artifacts.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">尾页</a>
+            {% else %}
+                <span class="link-one">|&emsp;下一页&emsp;尾页</span>
+            {% endif %}
+      </div>
+      <div class="form-bottom-info">
+            <span class="wordcss">&emsp;当前在第 {{ artifacts.number }} 页，共计 {{ artifacts.paginator.num_pages }} 页（共 {{ artifacts.paginator.count }} 条记录）</span>
+      </div>      
+      <div class="form-bottom-form">
+            <!-- 跳转页码功能 -->
+            <form action="" method="GET" style="display: inline-block;">
+              <input class="form-bottom-input" placeholder="跳转到..." size="10" type="number" name="page" min="1" max="{{ artifacts.paginator.num_pages }}" required>
+              {% if query %}
+              <input class="form-bottom-input" type="hidden" name="q" value="{{ query }}"> <!-- 保留搜索条件 -->
+              {% endif %}
+              <button class="button-bottom" type="submit">跳转</button>
+            </form>
+      </div>
+    </div>
+</body>
+</html>

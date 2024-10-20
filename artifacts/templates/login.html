@@ -1,0 +1,36 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'artifacts/styles_login.css' %}">
+</head>
+
+<body>
+    <h1 align="center" font-family="微软雅黑">用户登录</h1>
+    <div class="div-container"> 
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="input" type="text" name="username" placeholder="用户名" required>
+        </div>
+        <div class="form-group">
+            <input class="login-input" type="password" name="password" placeholder="密码" required>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="button">登录</button>
+            <span>&emsp;</span>
+            <button type="reset" class="button">重置</button>
+            {% if error %}
+              <p>{{ error }}</p>
+            {% endif %}
+        </div>
+      </form>
+    </div>
+</body>
+</html>

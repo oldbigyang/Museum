@@ -1,0 +1,185 @@
+
+p {
+  font-family: "微软雅黑";
+  font-size: 10.5pt;
+  text-align: center;
+}
+
+.p1 {
+  font-family: "微软雅黑";
+  font-size: 16px;
+  text-align: center;
+}
+
+.link-four {
+  font-family: "微软雅黑";
+  font-size: 10.5pt;
+  text-decoration: none;
+}
+
+
+
+.link-two {
+  font-family: "微软雅黑";
+  font-size: 10.5pt;
+}
+
+.link-two:link, .link-two:visited {
+  display: inline-block;
+  background-color: #909497;
+  color: #f5f5f5;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.link-two:hover, .link-two:active {
+  background-color: #999999;
+}
+
+
+.container {
+    max-width: 800px; /* 你可以根据需要调整宽度 */
+    margin: 0 auto; /* 上下外边距为0，左右自动居中 */
+    padding: 20px;
+    text-align: center; /* 使文本在容器内居中 */
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+h1 {
+    margin-bottom: 20px; /* 适当的间距 */
+}
+
+.h11 {
+  margin-bottom: 20px;
+  font-family: "微软雅黑";
+  text-align: center;
+    
+}
+
+
+.form-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.login-input {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 针对 textarea 的样式 */
+.form-text {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 针对 select 下拉框的样式 */
+.form-select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-submit { 
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.div-simple {
+  display:inline-block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  font-family: "微软雅黑";
+  font-size: 10.5pt;
+  text-align: center;
+}
+
+.form-div {
+  max-width: 100%;
+  border-radius: 5px;
+  background-color: #ffffff;
+  height: 100%; /* 设置容器高度，以便垂直居中 */
+  font-family: "微软雅黑";
+}
+
+.form-div-left {
+  background-color: #FFFFFF;
+  height: 100%;
+  width: 20%;
+  float: left;
+  font-family: "微软雅黑";
+}
+
+.form-div-middle {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  height: 100%;
+  width: 60%;
+  float: left;
+  font-family: "微软雅黑";
+}
+
+.form-div-right {
+  background-color: #ffffff;
+  height: 100%;
+  width: 20%;
+  float: right;
+  font-family: "微软雅黑";
+}
+
+.button {
+  display: inline-block;
+  margin: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "微软雅黑";
+  text-align: center;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.lb {
+  font-family: "微软雅黑";
+  font-size: 16px;
+  font-weight: bold;
+}
+

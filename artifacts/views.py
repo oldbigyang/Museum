@@ -8,6 +8,8 @@ from docx import Document
 from django.contrib.staticfiles import finders
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
 
 # 登录
 def user_login(request):
@@ -44,6 +46,8 @@ def user_logout(request):
         
         logout(request)
         return redirect('login')  # 替换为登录页面路由
+
+    return redirect('login')
 
 
 

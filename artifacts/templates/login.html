@@ -26,10 +26,8 @@
             <button type="submit" class="button">登录</button>
             <span>&emsp;</span>
             <button type="reset" class="button">重置</button>
-            {% if error %}
-              <p>{{ error }}</p>
-            {% endif %}
         </div>
+        <p>{% if error %}{{ error }}{% endif %}</p>
       </form>
     </div>
 </body>

@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'museum_management.wsgi.application'
 
 LOGIN_URL = '/artifact/login/'
 LOGIN_REDIRECT_URL = '/artifacts/artifact_list'
+LOGOUT_REDIRECT_URL = '/artifact/login/'
 
 
 # Database

@@ -4,7 +4,7 @@
 /*上部区域开始 */
 .form-top {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   gap: 20px;
   justify-content: center;
   align-items: center;

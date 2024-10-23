@@ -12,5 +12,8 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('real_name', 'id_card_number', 'phone_number')}),
     )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('real_name', 'id_card_number', 'phone_number')}),
+    )
 
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -9,6 +9,7 @@
 </head>
 <body>
   <h1 align="center">颐和园博物馆文物管理系统</h1>
+  <p align="center" color="blue">当前用户：{{ current_user.username }}</p>
   <div class="form-top">
     <a href="{% url 'artifact_create' %}" class="link-top">添加新文物</a>
     <form style="display: inline-block" method="GET" action="">

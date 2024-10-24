@@ -69,7 +69,9 @@ def artifact_list(request):
     page_number = request.GET.get('page')
     artifacts = paginator.get_page(page_number)
     
-    return render(request, 'artifacts/artifact_list.html', {'artifacts': artifacts, 'query': query})
+    current_user = request.user
+
+    return render(request, 'artifacts/artifact_list.html', {'artifacts': artifacts, 'query': query, 'current_user': current_user})
 
 # 创建新文物
 @login_required #确保用户登录才能访问
@@ -165,4 +167,3 @@ def artifact_export_word(request, pk):
     # 保存文档到响应
     doc.save(response)
     return response
-

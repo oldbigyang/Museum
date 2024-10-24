@@ -4,9 +4,18 @@ from django.utils import timezone
 from django.db import models
 
 
-
 #文物数据
 class Artifact(models.Model):
+
+    permissions = [
+
+        ("view_artifact", "Can view artifact"),
+        ("add_artifact", "Can add artifact"),
+        ("change_artifact", "Can change artifact"),
+        ("delete_artifact", "Can delete artifact"),
+
+    ]
+
     year = models.CharField(max_length=4, default='0000')    # 年
     month = models.CharField(max_length=2, default='00')    # 月
     day = models.CharField(max_length=2, default='00')    # 日

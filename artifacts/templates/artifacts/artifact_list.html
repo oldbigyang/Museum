@@ -9,11 +9,13 @@
 </head>
 <body>
   <h1 align="center">颐和园博物馆文物管理系统</h1>
-  <p align="center" color="blue">当前用户：{{ current_user.username }}</p>
+  <p align="center">当前用户：{{ current_user.username }}</p>
   <div class="form-top">
+      {% if "view" not in current_user_groups %}
     <a href="{% url 'artifact_create' %}" class="link-top">添加新文物</a>
+      {% endif %}
     <form style="display: inline-block" method="GET" action="">
-      <input id="artsearch" class="form-top-input" type="" name="q" placeholder="输入搜索关键字..." value="{{ query|default_if_none:'' }}">
+      <input id="artsearch" class="form-top-input" type="text" name="q" placeholder="输入搜索关键字..." value="{{ query|default_if_none:'' }}">
       <button class="button-top" type="submit">搜索</button>
     </form>
     <form style="display: inline-block" method="post" action="{% url 'logout' %}">
@@ -34,7 +36,9 @@
         <th>完残情况</th>
         <th>负责人</th>
         <th>入藏日期</th>
+        {% if "view" not in current_user_groups %}
         <th>操作</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -50,11 +54,13 @@
                     <td>{{ artifact.condition }}</td>
                     <td>{{ artifact.person_in_charge }}</td>
                     <td>{{ artifact.year }}-{{ artifact.month }}-{{artifact.day }}</td>
+                    {% if "view" not in current_user_groups %}
                     <td>
                       <a href="{% url 'artifact_update' artifact.pk %}" class="link-one">编辑</a>&emsp;|&emsp;
                       <a href="{% url 'artifact_delete' artifact.pk %}" class="link-one">删除</a>&emsp;|&emsp;
                       <a href="{% url 'artifact_export_word' artifact.pk %}" class="link-one">导出 Word 文件</a>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

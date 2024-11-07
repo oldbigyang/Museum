@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = 'Import artifacts from JSON files'
 
     def handle(self, *args, **kwargs):
-        directory = '/home/hongdayang/tmp/'  # 替换为你的 JSON 文件目录
+        directory = 'D:\WinPython\Temps\jsons'  # 替换为你的 JSON 文件目录
         error_files = []  # 用于记录出错的文件
 
         # 字段映射

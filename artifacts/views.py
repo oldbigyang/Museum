@@ -19,14 +19,16 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            print(f"user {user.username} logged in.")
+            print(f"用户：{user.username} 登录。")
             login(request, user)
             # 记录登录信息
-            record = LoginRecord(
+            ip_address = get_client_ip(request)
+            LoginRecord.objects.create(
                 user=user,
-                ip_address=request.META.get('REMOTE_ADDR')
+                login_time=timezone.now(),
+                ip_address=ip_address
             )
-            record.save()
+
             return redirect('artifact_list')  # 替换为你的主页路由
         else:
             # 登录失败的处理
@@ -37,6 +39,7 @@ def user_login(request):
 # 注销
 def user_logout(request):
     if request.method == 'POST':
+        print(f"用户：{request.user.username} 退出。")
         # 更新注销时间
         login_record = LoginRecord.objects.filter(user=request.user, logout_time__isnull=True).first()
         if login_record:
@@ -49,10 +52,18 @@ def user_logout(request):
 
     return redirect('login')
 
+# 获取用户 IP 地址
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 # 列出所有文物
-@login_required #确保用户登录才能访问
+@login_required  # 确保用户登录才能访问
 def artifact_list(request):
     print(request.user.is_authenticated)  # 打印用户是否已认证
     query = request.GET.get('q')
@@ -61,6 +72,11 @@ def artifact_list(request):
             Q(registration_number__icontains=query) |
             Q(name__icontains=query)
         ).order_by('registration_number')
+        LoginRecord.objects.create(
+            user=request.user,
+            ip_address=get_client_ip(request),
+            actions=f'搜索内容：{query}'
+        )
     else:
         artifacts = Artifact.objects.all().order_by('registration_number')
     
@@ -69,9 +85,10 @@ def artifact_list(request):
     page_number = request.GET.get('page')
     artifacts = paginator.get_page(page_number)
     
-    current_user = request.user
+    current_user = request.user  # 读取用户信息
+    current_user_groups = request.user.groups.values_list('name', flat=True)  # 读取用户组信息
 
-    return render(request, 'artifacts/artifact_list.html', {'artifacts': artifacts, 'query': query, 'current_user': current_user})
+    return render(request, 'artifacts/artifact_list.html', {'artifacts': artifacts, 'query': query, 'current_user': current_user, 'current_user_groups': current_user_groups})
 
 # 创建新文物
 @login_required #确保用户登录才能访问
@@ -80,6 +97,11 @@ def artifact_create(request):
         form = ArtifactForm(request.POST)
         if form.is_valid():
             form.save()
+            LoginRecord.objects.create(
+                user=request.user,
+                ip_address=get_client_ip(request),
+                actions=f'添加文物:{form.name}'
+            )
             return redirect('artifact_list')
     else:
         form = ArtifactForm()
@@ -93,6 +115,11 @@ def artifact_update(request, pk):
         form = ArtifactForm(request.POST, instance=artifact)
         if form.is_valid():
             form.save()
+            LoginRecord.objects.create(
+                user=request.user,
+                ip_address=get_client_ip(request),
+                actions=f'更新id为：{artifact.id}、名称为：{artifact.name}的文物信息，更新内容为：{request.POST}'
+            )
             return redirect('artifact_list')
     else:
         form = ArtifactForm(instance=artifact)
@@ -103,7 +130,14 @@ def artifact_update(request, pk):
 def artifact_delete(request, pk):
     artifact = get_object_or_404(Artifact, pk=pk)
     if request.method == 'POST':
+        artifact_name = artifact.name
         artifact.delete()
+
+        LoginRecord.objects.create(
+            user=request.user,
+            ip_address=get_client_ip(request),
+            actions=f'删除id为：{artifact.id}、名称为：{artifact_name}的文物。'
+        )
         return redirect('artifact_list')
     return render(request, 'artifacts/artifact_confirm_delete.html', {'artifact': artifact})
 
@@ -166,4 +200,10 @@ def artifact_export_word(request, pk):
 
     # 保存文档到响应
     doc.save(response)
+
+    LoginRecord.objects.create(
+        user=request.user,
+        ip_address=get_client_ip(request),
+        actions=f'导出id为：{artifact.id}、名称为：{artifact.name}的文物信息为Word文件。'
+    )
     return response

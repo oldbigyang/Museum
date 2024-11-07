@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import artifacts.middleware
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'artifacts.middleware.ActivityLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'museum_management.urls'
@@ -86,9 +89,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'museumdb',
         'USER': 'postgres',
-        'PASSWORD': 'kjcbwxhc',
+        'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '9527',
+        'PORT': '5432',
     }
 }
 
